@@ -2,6 +2,23 @@
 {% block title %}
     Home
 {% endblock %}
+{% block head %}
+    <style>
+        .gangster {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 6px;
+            padding-right: 6px;
+            margin-top: 10px;
+            background-color: #f6f6f6;
+            width: 100%;
+        }
+    </style>
+{% endblock %}
 {% block body %}
-    Home
+    {% for gangster in gangsters %}
+        <div class="gangster">
+            <a href="/gangster/{{ gangster.pk }}">{{ gangster }}</a>
+        </div>
+    {% endfor %}
 {% endblock %}
