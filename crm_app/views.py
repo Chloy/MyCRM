@@ -1,14 +1,13 @@
 from django.shortcuts import redirect, render
+from django.views.generic import ListView
 from . import models
 from . import forms
 
 
-def home(request):
-    gangsters = models.Gangster.objects.all()
-    context = {
-        'gangsters': gangsters
-    }
-    return render(request, 'crm_app/home.html', context)
+class Home(ListView):
+    template_name = 'crm_app/home.html'
+    queryset = models.Gangster.objects.all()
+    context_object_name = 'gangsters'
 
 
 def gangster_detail(request, pk):
