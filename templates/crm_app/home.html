@@ -16,9 +16,10 @@
     </style>
 {% endblock %}
 {% block body %}
+    <a href="{% url 'crm_app:crm_gangster_create' %}">Create Gangster</a>
     {% for gangster in gangsters %}
         <div class="gangster">
-            <a href="/gangster/{{ gangster.pk }}">{{ gangster }}</a>
+            <a href="{% url 'crm_app:crm_gangster_detail' pk=gangster.pk %}">{{ gangster }}</a>
         </div>
     {% endfor %}
 {% endblock %}
