@@ -1,25 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}
     Home
+    {% block crm_title %}
+    {% endblock crm_title %}
 {% endblock %}
+
 {% block head %}
-    <style>
-        .gangster {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-left: 6px;
-            padding-right: 6px;
-            margin-top: 10px;
-            background-color: #f6f6f6;
-            width: 100%;
-        }
-    </style>
 {% endblock %}
+
 {% block body %}
-    <a href="{% url 'crm_app:crm_gangster_create' %}">Create Gangster</a>
+    <a class="gangster" href="{% url 'crm_app:home' %}">Home</a>
+    <a class="gangster" href="{% url 'crm_app:gangster_create' %}">Create Gangster</a><br>
+    
+    {% block crm_body %}
     {% for gangster in gangsters %}
         <div class="gangster">
-            <a href="{% url 'crm_app:crm_gangster_detail' pk=gangster.pk %}">{{ gangster }}</a>
+            <a href="{% url 'crm_app:gangster_detail' pk=gangster.pk %}">{{ gangster }}</a>
         </div>
     {% endfor %}
-{% endblock %}
+    {% endblock crm_body %}
+
+{% endblock body %}

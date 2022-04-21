@@ -28,3 +28,22 @@ def gangster_create(request):
         'form': form
     }
     return render(request, 'crm_app/gangster_create.html', context)
+
+
+def gangster_update(request, pk):
+    gangster = models.Gangster.objects.get(pk=pk)
+    form = forms.Gangster(instance=gangster)
+    if request.method == 'POST':
+        form = forms.Gangster(request.POST, instance=gangster)
+        if form.is_valid:
+            form.save()
+    context = {
+        'gangster': gangster,
+        'form': form
+    }
+    return render(request, 'crm_app/gangster_update.html', context)
+
+
+def gangster_delete(request, pk):
+    models.Gangster.objects.get(pk=pk).delete()
+    return redirect('/crm')

@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
-{% block title %}
+{% extends 'crm_app/home.html' %}
+{% block crm_title %}
     {{ gangster.firstname }}
 {% endblock %}
-{% block body %}
+{% block crm_body %}
     {{ gangster.firstname }}
     {{ gangster.lastname }}
+    <div calss="gangster">
+        <a href="{% url 'crm_app:gangster_delete' pk=gangster.pk %}">Delete</a>
+        <a href="{% url 'crm_app:gangster_update' pk=gangster.pk %}">Update</a>
+    </div>
 {% endblock %}
