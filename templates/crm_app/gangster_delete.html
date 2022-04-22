@@ -1,0 +1,10 @@
+{% extends 'crm_app/home.html' %}
+{% block crm_title %}
+    Delete {{gangster.firstname}}
+{% endblock %}
+{% block crm_body %}
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ gangster }}"?</p>
+        <input type="submit" value="Confirm" />
+    </form>
+{% endblock %}

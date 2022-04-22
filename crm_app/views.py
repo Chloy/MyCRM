@@ -1,46 +1,40 @@
+from ast import Delete
 from django.shortcuts import redirect, render
-from django.views.generic import ListView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from . import models
 from . import forms
 
 
 class Home(ListView):
     template_name = 'crm_app/home.html'
-    queryset = models.Gangster.objects.all()
+    model = models.Gangster
     context_object_name = 'gangsters'
 
 
-def gangster_detail(request, pk):
-    context = {
-        'gangster': models.Gangster.objects.get(pk=pk)
-    }
-    return render(request, 'crm_app/gangster_detail.html', context)
+class GangsterDetail(DetailView):
+    model = models.Gangster
+    template_name = 'crm_app/gangster_detail.html'
+    context_object_name = 'gangster'
 
 
-def gangster_create(request):
-    form = forms.Gangster()
-    if request.method == 'POST':
-        form = forms.Gangster(request.POST)
-        if form.is_valid():
-            form.save()
-    context = {
-        'form': form
-    }
-    return render(request, 'crm_app/gangster_create.html', context)
+class GangsterCreate(CreateView):
+    model = models.Gangster
+    template_name = 'crm_app/gangster_create.html'
+    fields = ['firstname', 'lastname']
 
 
-def gangster_update(request, pk):
-    gangster = models.Gangster.objects.get(pk=pk)
-    form = forms.Gangster(instance=gangster)
-    if request.method == 'POST':
-        form = forms.Gangster(request.POST, instance=gangster)
-        if form.is_valid:
-            form.save()
-    context = {
-        'gangster': gangster,
-        'form': form
-    }
-    return render(request, 'crm_app/gangster_update.html', context)
+class GangsterUpdate(UpdateView):
+    model = models.Gangster
+    fields = ['firstname', 'lastname']
+    template_name = 'crm_app/gangster_update.html'
+
+
+class GangsterDelete(DeleteView):
+    model = models.Gangster
+    template_name = 'crm_app/gangster_delete.html'
+    context_object_name = "gangster"
+    success_url = reverse_lazy('crm_app:home')
 
 
 def gangster_delete(request, pk):

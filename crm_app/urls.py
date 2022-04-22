@@ -5,8 +5,8 @@ from . import views
 app_name = 'crm_app'
 urlpatterns = [
     path('', views.Home.as_view(), name='home'),
-    path('gangster/create/', views.gangster_create, name='gangster_create'),
-    path('gangster/<int:pk>/', views.gangster_detail, name='gangster_detail'),
-    path('gangster/<int:pk>/update', views.gangster_update, name='gangster_update'),
-    path('gangster/<int:pk>/delete', views.gangster_delete, name='gangster_delete'),
+    path('gangster/create/', views.GangsterCreate.as_view(), name='gangster_create'),
+    path('gangster/<int:pk>/', views.GangsterDetail.as_view(), name='gangster_detail'),
+    path('gangster/<int:pk>/update', views.GangsterUpdate.as_view(), name='gangster_update'),
+    path('gangster/<int:pk>/delete', views.GangsterDelete.as_view(), name='gangster_delete'),
 ]
