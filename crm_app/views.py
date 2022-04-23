@@ -1,15 +1,14 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from . import models
 
 
 class SignUp(CreateView):
     template_name = 'registration/signup.html'
-    model = User
+    form_class = UserCreationForm
     success_url = reverse_lazy('crm_app:login')
-    fields = ['username', 'password', 'email', 'is_staff']
 
 
 class Home(ListView):
