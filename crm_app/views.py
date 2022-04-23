@@ -1,9 +1,7 @@
-from ast import Delete
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from . import models
-from . import forms
 
 
 class Home(ListView):
@@ -35,8 +33,3 @@ class GangsterDelete(DeleteView):
     template_name = 'crm_app/gangster_delete.html'
     context_object_name = "gangster"
     success_url = reverse_lazy('crm_app:home')
-
-
-def gangster_delete(request, pk):
-    models.Gangster.objects.get(pk=pk).delete()
-    return redirect('/crm')
