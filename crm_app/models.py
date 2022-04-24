@@ -1,5 +1,11 @@
 from django.urls import reverse
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    pass
+
 
 class Skirmish(models.Model):
     place = models.CharField(max_length=250)
@@ -7,9 +13,10 @@ class Skirmish(models.Model):
     
 
 class Gangster(models.Model):
-    firstname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=250)
+    lastname = models.CharField(max_length=250)
+    
     def get_absolute_url(self):
         return reverse('crm_app:gangster_detail', kwargs={'pk': self.pk})
 
