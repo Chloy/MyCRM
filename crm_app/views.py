@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from . import models
 
@@ -12,31 +12,31 @@ class SignUp(CreateView):
     success_url = reverse_lazy('crm_app:login')
 
 
-class Home(ListView):
+class Home(LoginRequiredMixin, ListView):
     template_name = 'crm_app/home.html'
     model = models.Gangster
     context_object_name = 'gangsters'
 
 
-class GangsterDetail(DetailView):
+class GangsterDetail(LoginRequiredMixin, DetailView):
     model = models.Gangster
     template_name = 'crm_app/gangster_detail.html'
     context_object_name = 'gangster'
 
 
-class GangsterCreate(CreateView):
+class GangsterCreate(LoginRequiredMixin, CreateView):
     model = models.Gangster
     template_name = 'crm_app/gangster_create.html'
-    fields = ['firstname', 'lastname']
+    fields = '__all__'
 
 
-class GangsterUpdate(UpdateView):
+class GangsterUpdate(LoginRequiredMixin, UpdateView):
     model = models.Gangster
     fields = ['firstname', 'lastname']
     template_name = 'crm_app/gangster_update.html'
 
 
-class GangsterDelete(DeleteView):
+class GangsterDelete(LoginRequiredMixin, DeleteView):
     model = models.Gangster
     template_name = 'crm_app/gangster_delete.html'
     context_object_name = "gangster"
