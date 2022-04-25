@@ -19,3 +19,4 @@ class Gangster(forms.ModelForm):
     class Meta:
         model = models.Gangster
         fields = '__all__'
+        exclude = ('user',)

@@ -25,9 +25,13 @@ class GangsterDetail(LoginRequiredMixin, DetailView):
 
 
 class GangsterCreate(LoginRequiredMixin, CreateView):
-    model = models.Gangster
     template_name = 'crm_app/gangster_create.html'
-    fields = '__all__'
+    form_class = forms.Gangster
+
+    def post(self, request, *args, **kwargs):
+        print(self)
+        super().post(self, request, *args, **kwargs)
+
 
 
 class GangsterUpdate(LoginRequiredMixin, UpdateView):
