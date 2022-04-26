@@ -23,9 +23,10 @@
     <a class="gangster" href="{% url 'crm_app:skirmish_create' %}">Create Skirmish</a>
     
     {% block crm_body %}
-        {% for gangster in gangsters %}
+        {% for skirmish in skirmishs %}
             <div class="gangster">
-                <a href="{% url 'crm_app:gangster_detail' pk=gangster.pk %}">{{ gangster }}</a>
+                
+                {{ skirmish }}
             </div>
         {% endfor %}
     {% endblock crm_body %}

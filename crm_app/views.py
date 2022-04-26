@@ -41,7 +41,7 @@ class GangCreate(LoginRequiredMixin, CreateView):
 class Home(ListView):
     template_name = 'crm_app/home.html'
     model = models.Skirmish
-    context_object_name = 'gangsters'
+    context_object_name = 'skirmishs'
 
 
 class GangsterDetail(LoginRequiredMixin, DetailView):

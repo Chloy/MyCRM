@@ -17,8 +17,9 @@ class SkirmishForm(forms.ModelForm):
     place = forms.CharField(max_length=250)
 
     def save(self, request):
-        skirmish = super(SkirmishForm, self).save(commit=False)
-        # skirmish.gangs.add(request.user__userprofile)
+        skirmish = super(SkirmishForm, self).save()
+        skirmish.gangs.add(models.Gang.objects.get(boss__user=request.user.id))
+        skirmish.save()
 
 
 class GangsterForm(forms.ModelForm):
