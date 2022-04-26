@@ -35,7 +35,6 @@ class Gangster(models.Model):
     lastname = models.CharField(max_length=250)
     gang_member = models.ForeignKey('Gang', on_delete=models.SET_NULL, null=True, blank=True)
 
-
     def get_absolute_url(self):
         return reverse('crm_app:gangster_detail', kwargs={'pk': self.pk})
 

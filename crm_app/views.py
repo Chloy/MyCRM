@@ -26,12 +26,13 @@ class GangsterDetail(LoginRequiredMixin, DetailView):
 
 class GangsterCreate(LoginRequiredMixin, CreateView):
     template_name = 'crm_app/gangster_create.html'
-    form_class = forms.Gangster
+    form_class = forms.GangsterForm
 
     def post(self, request, *args, **kwargs):
-        print(self)
-        super().post(self, request, *args, **kwargs)
-
+        form = forms.GangsterForm(request.POST)
+        if form.is_valid():
+            form.save(request)
+        return redirect(reverse_lazy('crm_app:home'))
 
 
 class GangsterUpdate(LoginRequiredMixin, UpdateView):
