@@ -11,8 +11,15 @@ class CustomUserCreationForm(UserCreationForm):
 class SkirmishForm(forms.ModelForm):
     class Meta:
         model = models.Skirmish
-        fields = '__all__'
-    
+        fields = ['enemy_gang', 'place']
+
+    enemy_gang = forms.ModelChoiceField(models.Gang.objects.all())
+    place = forms.CharField(max_length=250)
+
+    def save(self, request):
+        skirmish = super(SkirmishForm, self).save(commit=False)
+        # skirmish.gangs.add(request.user__userprofile)
+
 
 class GangsterForm(forms.ModelForm):
     class Meta:
@@ -24,3 +31,15 @@ class GangsterForm(forms.ModelForm):
         gangster = super(GangsterForm, self).save(commit=False)
         gangster.user = request.user
         gangster.save()
+
+
+class GangForm(forms.ModelForm):
+    class Meta:
+        model = models.Gang
+        fields = '__all__'
+        exclude = ('boss',)
+
+    def save(self, request):
+        gang = super(GangForm, self).save(commit=False)
+        gang.boss = models.Gangster.objects.get(user=request.user.id)
+        gang.save()

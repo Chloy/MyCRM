@@ -6,15 +6,41 @@ from . import forms
 from . import models
 
 
+# class 
+
+
 class SignUp(CreateView):
     template_name = 'registration/signup.html'
     form_class = forms.CustomUserCreationForm
     success_url = reverse_lazy('crm_app:login')
 
 
-class Home(LoginRequiredMixin, ListView):
+class CreateSkirmish(LoginRequiredMixin, CreateView):
+    template_name = 'crm_app/skirmish_create.html'
+    form_class = forms.SkirmishForm
+    content_object_name = 'skirmish'
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save(request)
+        return redirect(reverse_lazy('crm_app:home'))
+
+
+class GangCreate(LoginRequiredMixin, CreateView):
+    template_name = 'crm_app/gang_create.html'
+    form_class = forms.GangForm
+
+    def post(self, request, *args, **kwargs):
+        form = forms.GangForm(request.POST)
+        if form.is_valid():
+            form.save(request)
+        return redirect(reverse_lazy('crm_app:home'))
+
+
+class Home(ListView):
     template_name = 'crm_app/home.html'
-    model = models.Gangster
+    model = models.Skirmish
     context_object_name = 'gangsters'
 
 

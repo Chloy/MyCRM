@@ -1,7 +1,13 @@
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save
+
+
+# USER_PROFILE_CHOISES = (
+#     ('Gangster', 'Gang'),
+#     ('', ''),
+# )
 
 
 class User(AbstractUser):
@@ -17,7 +23,6 @@ class UserProfile(models.Model):
 
 class Skirmish(models.Model):
     place = models.CharField(max_length=250)
-    participants = models.ManyToManyField('Gangster')
     gangs = models.ManyToManyField('Gang')
     
 
@@ -47,11 +52,4 @@ def post_user_created_signal(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 
-# def post_gangster_created_signal(self, instance, created, **kwardgs):
-#     if created:
-#         instance.user = 
-
-
-
 post_save.connect(post_user_created_signal, sender=User)
-# post_save.connect(post_user_created_signal, sender=Gangster)
