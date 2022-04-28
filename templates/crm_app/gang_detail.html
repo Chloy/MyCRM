@@ -1,0 +1,14 @@
+{% extends 'crm_app/home.html' %}
+{% block crm_title %}
+    {{ gang.name }}
+{% endblock %}
+{% block crm_body %}
+    <br>{{ gang.name }}
+    <br>{{ gang.boss }}
+    <div calss="gangster">
+        {% if request.user.id == gang.boss.user.id %}
+            <a href="{% url 'crm_app:gang_delete' pk=gang.pk %}">Delete</a>
+            <a href="{% url 'crm_app:gang_update' pk=gang.pk %}">Update</a>
+        {% endif %}
+    </div>
+{% endblock %}

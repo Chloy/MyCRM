@@ -1,9 +1,9 @@
 {% extends 'crm_app/home.html' %}
 {% block crm_title %}
-    Create gangster
+    Update {{gang.name}}
 {% endblock %}
 {% block crm_body %}
-    <form method="POST" action="{% url 'crm_app:gangster_create' %}">
+    <form method="POST" action="{% url 'crm_app:gang_update' pk=gang.pk %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>

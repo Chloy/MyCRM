@@ -1,0 +1,13 @@
+{% extends 'crm_app/home.html' %}
+
+{% block crm_title %}
+    Gagns
+{% endblock crm_title %}
+
+{% block crm_body %}
+    {% for gang in object_list %}
+        <div class="gangster">
+            <a href="{% url 'crm_app:gang_detail' pk=gang.pk %}" >{{ gang }}</a>
+        </div>
+    {% endfor %}
+{% endblock crm_body %}
