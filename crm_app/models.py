@@ -20,7 +20,7 @@ class UserProfile(models.Model):
 class Skirmish(models.Model):
     place = models.CharField(max_length=250)
     gangs = models.ManyToManyField('Gang')
-    
+
 
 class Gang(models.Model):
     name = models.CharField(max_length=250)

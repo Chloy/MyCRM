@@ -3,6 +3,16 @@ from django.contrib.auth.forms import UserCreationForm
 from . import models
 
 
+class UserProfile(forms.ModelForm):
+    class Meta:
+        model = models.UserProfile
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+       super(UserProfile, self).__init__(*args, **kwargs)
+       self.fields['user'].widget.attrs['readonly'] = True
+
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = models.User

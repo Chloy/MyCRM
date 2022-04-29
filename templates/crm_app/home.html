@@ -17,6 +17,8 @@
         <a href="{% url 'crm_app:signup' %}">Sign Up</a>
     {% endif %}
     
+
+    <a class="gangster" href="{% url 'crm_app:userprofile' %}">User Profile</a>
     <a class="gangster" href="{% url 'crm_app:home' %}">Home</a>
     <a class="gangster" href="{% url 'crm_app:gang_create' %}">Create Gang</a>
     <a class="gangster" href="{% url 'crm_app:skirmish_create' %}">Create Skirmish</a>
@@ -25,7 +27,10 @@
     {% block crm_body %}
         {% for skirmish in skirmishs %}
             <div class="gangster">
-                {{ skirmish }}
+                At {{skirmish.place}} skirmish between 
+                {% for gang in skirmish.gangs.all %}
+                    {{gang}}
+                {% endfor %}
             </div>
         {% endfor %}
     {% endblock crm_body %}

@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 app_name = 'crm_app'
 urlpatterns = [
+    path('profile', views.UserProfile.as_view(), name='userprofile'),
     path('', views.Home.as_view(), name='home'),
     path('gang/all', views.Gangs.as_view(), name='gangs'),
     path('gang/create', views.GangCreate.as_view(), name='gang_create'),
