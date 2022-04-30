@@ -12,8 +12,11 @@ class UserProfile(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        form = forms.UserProfile(instance=models.UserProfile.objects.get(user__id=self.request.user.id))
-        data['form'] = form
+        profile = models.UserProfile.objects.get(user__id=self.request.user.id)
+        data['username'] = profile.user.username
+        data['gangster'] = f'{profile.gangster.firstname} {profile.gangster.lastname}'
+        if profile.gangster.gang_member:
+            data['gang'] = profile.gangster.gang_member.name
         return data
 
 

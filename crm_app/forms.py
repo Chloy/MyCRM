@@ -53,4 +53,6 @@ class GangForm(forms.ModelForm):
     def save(self, request):
         gang = super(GangForm, self).save(commit=False)
         gang.boss = models.Gangster.objects.get(user=request.user.id)
+        gang.boss.gang_member = gang
         gang.save()
+        gang.boss.save()
