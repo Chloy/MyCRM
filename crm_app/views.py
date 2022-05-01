@@ -62,14 +62,15 @@ class GangDetail(DetailView):
 
 class GangUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'crm_app/gang_update.html'
-    form_class = forms.GangForm
+    model = models.Gang
+    fields = ['name']
     content_object_name = 'gang'
 
 
 class GangDelete(LoginRequiredMixin, DeleteView):
     template_name = 'crm_app/gang_delete.html'
-    form_class = forms.GangForm
-    content_object_name = 'gang'
+    model = models.Gang
+    success_url = reverse_lazy('crm_app:gangs')
 
 
 class Home(ListView):

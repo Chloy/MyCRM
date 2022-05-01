@@ -23,6 +23,9 @@ class Gang(models.Model):
     name = models.CharField(max_length=250)
     boss = models.OneToOneField('Gangster', on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('crm_app:gang_detail', kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.name
 

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home
+    {% block crm_title %}
+    {% endblock crm_title %}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    {% if request.user.is_authenticated %}
+        Logged in as: {{ request.user.username }}
+        <a href="{% url 'crm_app:logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'crm_app:login' %}">Login</a>
+        <a href="{% url 'crm_app:signup' %}">Sign Up</a>
+    {% endif %}
+    
+
+    <a class="gangster" href="{% url 'crm_app:userprofile' %}">User Profile</a>
+    <a class="gangster" href="{% url 'crm_app:home' %}">Home</a>
+    <a class="gangster" href="{% url 'crm_app:gang_create' %}">Create Gang</a>
+    <a class="gangster" href="{% url 'crm_app:skirmish_create' %}">Create Skirmish</a>
+    <a class="gangster" href="{% url 'crm_app:gangs' %}">Gangs</a>
+    
+    {% block crm_body %}
+        {% for skirmish in skirmishs %}
+            <div class="gangster">
+                At {{skirmish.place}} skirmish between 
+                {% for gang in skirmish.gangs.all %}
+                    {{gang}}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endblock crm_body %}
+
+{% endblock body %}

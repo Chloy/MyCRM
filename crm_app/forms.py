@@ -8,10 +8,6 @@ class UserProfile(forms.ModelForm):
         model = models.UserProfile
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-       super(UserProfile, self).__init__(*args, **kwargs)
-       self.fields['user'].widget.attrs['readonly'] = True
-
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -28,7 +24,7 @@ class SkirmishForm(forms.ModelForm):
 
     def save(self, request):
         skirmish = super(SkirmishForm, self).save()
-        skirmish.gangs.add(models.Gang.objects.get(boss__user=request.user.id))
+        skirmish.gangs.add(models.Gang.objects.get(boss__user__id=request.user.id))
         skirmish.save()
 
 
