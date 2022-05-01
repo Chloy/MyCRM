@@ -1,12 +1,22 @@
+from email import message
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from . import forms
 from . import models
 
 
-class UserProfile(TemplateView):
+class CustomLoginRequired(LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.warning(request, 'Login first')
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UserProfile(CustomLoginRequired, TemplateView):
     form_class = forms.UserProfile
     template_name = 'crm_app/user_profile.html'
 
@@ -26,10 +36,18 @@ class SignUp(CreateView):
     success_url = reverse_lazy('crm_app:login')
 
 
-class CreateSkirmish(LoginRequiredMixin, CreateView):
+class CreateSkirmish(CustomLoginRequired, CreateView):
     template_name = 'crm_app/skirmish_create.html'
     form_class = forms.SkirmishForm
     content_object_name = 'skirmish'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            if request.user.gangster.gang:
+                return super().get(self, request, *args, **kwargs)
+        except models.Gang.DoesNotExist:
+            messages.warning(request, 'You need a gang.')
+            return redirect(reverse_lazy('crm_app:gang_create')) 
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -43,7 +61,7 @@ class Gangs(ListView):
     model = models.Gang
 
 
-class GangCreate(LoginRequiredMixin, CreateView):
+class GangCreate(CustomLoginRequired, CreateView):
     template_name = 'crm_app/gang_create.html'
     form_class = forms.GangForm
 
@@ -60,14 +78,14 @@ class GangDetail(DetailView):
     content_object_name = 'gang'
 
 
-class GangUpdate(LoginRequiredMixin, UpdateView):
+class GangUpdate(CustomLoginRequired, UpdateView):
     template_name = 'crm_app/gang_update.html'
     model = models.Gang
     fields = ['name']
     content_object_name = 'gang'
 
 
-class GangDelete(LoginRequiredMixin, DeleteView):
+class GangDelete(CustomLoginRequired, DeleteView):
     template_name = 'crm_app/gang_delete.html'
     model = models.Gang
     success_url = reverse_lazy('crm_app:gangs')
@@ -79,7 +97,7 @@ class Home(ListView):
     context_object_name = 'skirmishs'
 
 
-class GangsterDetail(LoginRequiredMixin, DetailView):
+class GangsterDetail(CustomLoginRequired, DetailView):
     model = models.Gangster
     template_name = 'crm_app/gangster_detail.html'
     context_object_name = 'gangster'

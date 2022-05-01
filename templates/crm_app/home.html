@@ -17,13 +17,19 @@
         <a href="{% url 'crm_app:signup' %}">Sign Up</a>
     {% endif %}
     
-
     <a class="gangster" href="{% url 'crm_app:userprofile' %}">User Profile</a>
     <a class="gangster" href="{% url 'crm_app:home' %}">Home</a>
     <a class="gangster" href="{% url 'crm_app:gang_create' %}">Create Gang</a>
     <a class="gangster" href="{% url 'crm_app:skirmish_create' %}">Create Skirmish</a>
     <a class="gangster" href="{% url 'crm_app:gangs' %}">Gangs</a>
-    
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     {% block crm_body %}
         {% for skirmish in skirmishs %}
             <div class="gangster">
