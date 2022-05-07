@@ -35,6 +35,7 @@ class Gangster(models.Model):
     firstname = models.CharField(max_length=250)
     lastname = models.CharField(max_length=250)
     gang_member = models.ForeignKey('Gang', on_delete=models.SET_NULL, null=True, blank=True)
+    image = models.ImageField(default='guts.png')
 
     def get_absolute_url(self):
         return reverse('crm_app:gangster_detail', kwargs={'pk': self.pk})

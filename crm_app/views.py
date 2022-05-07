@@ -25,6 +25,7 @@ class UserProfile(CustomLoginRequired, TemplateView):
         profile = models.UserProfile.objects.get(user__id=self.request.user.id)
         data['username'] = profile.user.username
         data['gangster'] = f'{profile.gangster.firstname} {profile.gangster.lastname}'
+        data['image'] = profile.gangster.image
         if profile.gangster.gang_member:
             data['gang'] = profile.gangster.gang_member.name
         return data
