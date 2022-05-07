@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from PIL import Image
 
 class User(AbstractUser):
     pass
@@ -42,6 +42,18 @@ class Gangster(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.firstname, self.lastname)
+
+    def save(self):
+        super().save()
+        try:
+            img = Image.open(self.image.path)
+        except:
+            pass
+        else:
+            if img.height > 300 or img.width > 300:
+                size = (300, 300)
+                img.thumbnail(size)
+                img.save(self.image.path)
 
 
 def post_user_created_signal(sender, instance, created, **kwargs):
