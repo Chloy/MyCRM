@@ -3,12 +3,12 @@
     {{ gang.name }}
 {% endblock %}
 {% block crm_body %}
-    <br>{{ gang.name }}
-    <br>{{ gang.boss }}
+    <p class="h2">{{ gang.name }}</p>
+    <p><strong>Boss: {{ gang.boss }}</strong></p>
     <div calss="gangster">
         {% if request.user.id == gang.boss.user.id %}
-            <a href="{% url 'crm_app:gang_delete' pk=gang.pk %}">Delete</a>
-            <a href="{% url 'crm_app:gang_update' pk=gang.pk %}">Update</a>
+            <a class="btn btn-danger" href="{% url 'crm_app:gang_delete' pk=gang.pk %}">Delete</a>
+            <a class="btn btn-secondary" href="{% url 'crm_app:gang_update' pk=gang.pk %}">Update</a>
         {% endif %}
     </div>
 {% endblock %}

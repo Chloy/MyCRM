@@ -6,8 +6,13 @@
 
 {% block crm_body %}
     {% for gang in object_list %}
-        <div class="gangster">
-            <a href="{% url 'crm_app:gang_detail' pk=gang.pk %}" >{{ gang }}</a>
+        <div class="card" style="width: 18rem;">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+                <h5 class="card-title">{{gang.name}}</h5>
+                <p class="card-text">Boss: {{gang.boss}}</p>
+                <a href="{% url 'crm_app:gang_detail' pk=gang.pk %}" class="btn btn-primary">Info</a>
+            </div>
         </div>
     {% endfor %}
 {% endblock crm_body %}

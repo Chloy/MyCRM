@@ -5,9 +5,11 @@
 {% endblock crm_title %}
 
 {% block crm_body %}
-    <br>{{username}}
-    <br>{{gangster}}
-    <br>{{gang}}
-    <br>
-    <img src="{{image.url}}">
+    <img src="{{image.url}}" class="img-thumbnail">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Username: {{username}}</li>
+        <li class="list-group-item">Gangster: {{gangster}}</li>
+        <li class="list-group-item">Gang: {{gang}}</li>
+      </ul>
+   
 {% endblock crm_body %}
