@@ -1,0 +1,13 @@
+# asgiref
+# backports.zoneinfo
+# certifi
+# charset-normalizer
+Django
+# django-crispy-forms
+# idna
+Pillow
+# pkg_resources
+psycopg2
+# requests
+# sqlparse
+# urllib3

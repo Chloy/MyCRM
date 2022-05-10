@@ -43,15 +43,15 @@ class Gangster(models.Model):
     def __str__(self):
         return '{} {}'.format(self.firstname, self.lastname)
 
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super(Gangster, self).save(*args, **kwargs)
         try:
             img = Image.open(self.image.path)
         except:
             pass
         else:
-            if img.height > 300 or img.width > 300:
-                size = (300, 300)
+            if img.height > 200 or img.width > 200:
+                size = (200, 200)
                 img.thumbnail(size)
                 img.save(self.image.path)
 
